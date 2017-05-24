@@ -1,0 +1,37 @@
+ul {
+	list-style-type: none;
+}
+
+.btn1, .btn2, .btn3, .btn4, .none {
+	height: 120px;
+	width: 50%;
+	border: none;
+	color: white;
+	font-size: 50px;
+	cursor: pointer;
+
+}
+
+.btn1:focus, .btn2:focus, .btn3:focus, .btn4:focus, .none:focus {
+	outline: none;
+}
+
+.btn1 {
+	background-color: #df86f9;
+}
+
+.btn2 {
+	background-color: #a586f9;
+}
+
+.btn3 {
+	background-color: #86caf9;
+}
+
+.btn4 {
+	background-color: #86f9f0;
+}
+
+.none {
+	background-color: #f9b386; 
+}

@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import ButtonsReducer from './reducer_buttons';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  buttons: ButtonsReducer
 });
 
 export default rootReducer;
