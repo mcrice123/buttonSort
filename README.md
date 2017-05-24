@@ -1,4 +1,8 @@
-# ReduxSimpleStarter
+# Button Sort
+
+Experiment with React and Redux using ReduxSimpleStarter by Stephen Grider.
+
+
 
 Interested in learning [Redux](https://www.udemy.com/react-redux/)?
 
