@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import ButtonComponent from '../ButtonComponent';
+import { updateButtons, incrementButton } from '../../actions/index';
 
 class ButtonListComponent extends Component {
 
+	constructor(props) {
+		super(props);
+
+		this.incrementButton = this.incrementButton.bind(this);
+	}
+
 	incrementValue(i) {
-		let array2 = this.props.buttons; 
-		array2[i].value = this.props.buttons[i].value + 1;
-		this.setState({ buttons: array2 }); // component state! Need it to affect app state
+		//let array = this.props.buttons;
+		this.props.incrementButton(this.props.buttons, i); 
 	
 		// call function to check preceding button
 		this.checkPrevious(i);
@@ -20,24 +27,38 @@ class ButtonListComponent extends Component {
 		if (array0[i-1]) {
 			if (array0[i].value > array0[i-1].value) {
 				array0[i-1] = array0[i];
-				console.log("array0[i-1]: " + array0[i-1].value);
-				console.log("object: " + object.value);
-				console.log("array0[i]: " + array0[i].value);
 				array0[i] = object; // swaps two elements
-				console.log("array0[i]: " + array0[i].value);
-				console.log("object: " + object.value);
-				this.setState({ buttons: array0 }); // seems to be setting both elements to same value and incrementing both when one is clicked
+				this.props.updateButtons(array0); // seems to be setting both elements to same value and incrementing both when one is clicked
 				this.checkPrevious(i-1);
 			}
 		}
 	}
 
+	insertionSort(buttons) {
+		let sortedButtons = buttons;
+		sortedButtons.map((button, i) => {
+			let j = i - 1;
+			let object = sortedButtons[i];
+			for (; j>=0 && sortedButtons[j].value > object.value; --j) {
+				sortedButtons[j+1] = sortedButtons[j];
+			}
+			sortedButtons[j+1] = object;
+		});
+		return sortedButtons;
+	}
+
 	renderList() {
-		return this.props.buttons.map((button, i) => {
+		// insertion sort heere
+		const sortedButtons = this.insertionSort(this.props.buttons);
+		
+		return sortedButtons.map((button, i) => {
+			console.log("in map funciton ");
+			// change increment value function and pass button instance down to button component
+			
+
 			return (
-				<li 
-					key={i}>
-					<ButtonComponent startValue={button.startValue} value={button.value} onButtonClick={ () => this.incrementValue(i) }/>
+				<li key={i}>
+					<ButtonComponent button={button} onClick={this.incrementButton.bind(button)}/>
 				</li>
 			);
 		});
@@ -53,9 +74,15 @@ class ButtonListComponent extends Component {
 }
 
 function mapStateToProps(state) {
+	console.log("state to props ");
 	return {
 		buttons: state.buttons
 	};
 }
 
-export default connect(mapStateToProps)(ButtonListComponent);
+function mapDispatchToProps(dispatch) {
+	console.log("HERE");
+	return bindActionCreators({ incrementButton: incrementButton }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ButtonListComponent);
