@@ -17,7 +17,7 @@ export default class App extends Component {
     return (
       <div>
     	<h1>Button Sort</h1>
-    	<ButtonListComponent array={this.state.array} />
+    	<ButtonListComponent />
 
       </div>
     );

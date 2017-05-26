@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const ButtonComponent = ({button}) => {
+const ButtonComponent = ({button, onButtonClick}) => {
 	const buttonStyle = button.id;
 			
 	return (
 		<button 
 			className={buttonStyle} 
-			type="button">
+			type="button"
+			onClick={onButtonClick}>
 			{button.value}
 		</button>
 	);
 }
+export default ButtonComponent;
 
