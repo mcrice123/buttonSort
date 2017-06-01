@@ -4,7 +4,7 @@ export function incrementButton(buttons, i) {
 	console.log("buttons: " + buttons + ", i: " + i);
 	return {
 		type: 'ADDED_ONE',
-		payload: { buttons: buttons, id: i }
+		payload: { buttons: buttons, idnum: i }
 	};
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ButtonComponent = ({button, onButtonClick}) => {
-	const buttonStyle = button.id;
+	const buttonStyle = button.label;
 			
 	return (
 		<button 

@@ -7,16 +7,10 @@ import { incrementButton } from '../../actions/index';
 
 class ButtonListComponent extends Component {
 
-	constructor(props) {
-		super(props);
-
-		this.incrementValue = this.incrementValue.bind(this);
-	}
-
 	// Increment Value function calls action creator for incrementing button
-	incrementValue(i) {
+	incrementValue(e, i) {
 		//let array = this.props.buttons;
-		console.log("increment value ");
+		console.log("increment:" + i);
 		this.props.incrementButton(this.props.buttons, i); 
 		//this.props.updateButtons(this.props.)
 	
@@ -64,7 +58,7 @@ class ButtonListComponent extends Component {
 			console.log("round: " + i);
 			return (
 				<li key={i}>
-					<ButtonComponent button={button} onButtonClick={() => this.incrementValue(i)} />
+					<ButtonComponent button={button} onButtonClick={e => this.incrementValue(e, i)} />
 				</li>
 			);
 		});
@@ -72,6 +66,7 @@ class ButtonListComponent extends Component {
 
 // Render function where list of buttons appears; calls renderList() function
 	render() {
+		console.log(this.props.buttons);
 		this.props.buttons.map((button, i) => { console.log("button value: " + button.value +", index: " + i )});
 		return(
 			<ul>
@@ -84,6 +79,7 @@ class ButtonListComponent extends Component {
 function mapStateToProps(state) {
 	// Whatever is returned will show up as props inside ButtonListComponent
 	console.log("state to props ");
+	console.log(state.buttons); // returns an OBJECT, but should be an ARRAY!!!!
 	return {
 		buttons: state.buttons
 	};
@@ -93,7 +89,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	// Whenever incrementButton is called, the result should be passed to all of our 
 	// reducers
-	console.log("HERE");
+	console.log("dispatch HERE");
 	return bindActionCreators({ incrementButton: incrementButton }, dispatch); // So anytime a button value changes, the state should update automatically
 }
 
