@@ -11,7 +11,16 @@ class ButtonListComponent extends Component {
 	incrementValue(e, i) {
 		//let array = this.props.buttons;
 		console.log("increment:" + i);
-		this.props.incrementButton(this.props.buttons, i); 
+		let array = this.props.buttons.map((button, index) => {
+			if (index === i) {
+				button.value += 1;
+				return button;
+			}
+			return button;
+		});
+		console.log(array);
+
+		this.props.incrementButton(array, i); 
 		//this.props.updateButtons(this.props.)
 	
 		// call function to check preceding button

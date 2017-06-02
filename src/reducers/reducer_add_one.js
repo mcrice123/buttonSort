@@ -1,14 +1,16 @@
 export default function(state = null, action) {
 	switch(action.type) {
 		case 'ADDED_ONE':
-			console.log("added one reducer");
-			console.log("value: " + action.payload.buttons[action.payload.idnum].value);
-			let array = action.payload.buttons;
-			console.log("array: " + array[action.payload.idnum].value);
-			console.log(array);
-			array[action.payload.idnum].value += 1;
-			return Object.assign({}, state, { 
-				buttons: array
+			console.log("Added one ");
+			const array = action.payload.buttons;
+			return array.map((button, index) => {
+				if(index !== action.idnum) {
+					return button;
+				}
+				return {
+					...button,
+					...action.buttons[action.idnum]
+				};
 			});
 	}
 	if (!state) {
